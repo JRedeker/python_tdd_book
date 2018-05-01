@@ -109,3 +109,4 @@ venv.bak/
 geckodriver.log
 __pycache__
 *.pyc
+*.idea
