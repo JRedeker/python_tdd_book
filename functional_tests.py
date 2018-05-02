@@ -1,4 +1,4 @@
-# http://www.obeythetestinggoat.com/book/chapter_02_unittest.html
+# http://www.obeythetestinggoat.com/book/chapter_post_and_database.html
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -35,7 +35,7 @@ class NewVisitorTest(unittest.TestCase):
         # when the user hits enter, the page updates, and the page now lists:
         # "1: buy swimsuit for vacation"
         input_box.send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(10)
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
