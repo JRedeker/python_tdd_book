@@ -1,25 +1,39 @@
 # http://www.obeythetestinggoat.com/book/chapter_02_unittest.html
 from selenium import webdriver
+import unittest
 
-# user opens the website
-browser = webdriver.Firefox()
-browser.get('http://localhost:8000')
 
-# the page loads and sees the header
-assert 'Remember' in browser.title
+class NewVisitorTest(unittest.TestCase):
 
-# user is invited to enter a first remember item
+    def setUp(self):
+        self.browser = webdriver.Firefox()
 
-# user enters a first remember item of "swimsuit"
+    def tearDown(self):
+        self.browser.quit()
 
-# when the user hits enter, the page updates, and the page now lists:
-# "1: buy swimsuit for vacation"
+    def test_can_start_list_and_retrieve_later(self):
+        # user opens the website
+        self.browser.get('http://localhost:8000')
 
-# there is still a text boy for more items.  user enters a second item "sun tan lotion"
+        # the page loads and sees the title
+        self.assertIn('Remember', self.browser.title)
+        self.fail('test not complete')
 
-# the page updates again, and now shows both items on the list
+        # user is invited to enter a first remember item
 
-# the site has generated a unique url for the list.  text is displayed to explain
+        # user enters a first remember item of "swimsuit"
 
-# the unique url is navigated to and the list is still there with both items
+        # when the user hits enter, the page updates, and the page now lists:
+        # "1: buy swimsuit for vacation"
 
+        # there is still a text boy for more items.  user enters a second item "sun tan lotion"
+
+        # the page updates again, and now shows both items on the list
+
+        # the site has generated a unique url for the list.  text is displayed to explain
+
+        # the unique url is navigated to and the list is still there with both items
+
+
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')
