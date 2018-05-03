@@ -11,10 +11,14 @@
 
 <form method="POST">
     <label for="id_new_item">New item:</label>
-    <input id="id_new_item" placeholder="Enter a grocery list item"/>
+    <input name="item_text" id="id_new_item" placeholder="Enter a grocery list item"/>
+    {% csrf_token %}
 </form>
 
 <table id="id_list_table">
+    <tr>
+        <td>1: {{ new_item_text }}</td>
+    </tr>
 </table>
 
 

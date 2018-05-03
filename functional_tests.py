@@ -35,21 +35,23 @@ class NewVisitorTest(unittest.TestCase):
         # when the user hits enter, the page updates, and the page now lists:
         # "1: buy swimsuit for vacation"
         input_box.send_keys(Keys.ENTER)
-        time.sleep(10)
+        time.sleep(1)
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: milk' for row in rows),
-            "New Grocery List item did not appear in table"
-        )
+        self.assertIn('1: milk', [row.text for row in rows])
 
         # there is still a text boy for more items.  user enters a second item "sun tan lotion"
-        self.fail('working, but test not finished')
+        input_box.send_keys('sun tan lotion')
+        input_box.send_keys(Keys.ENTER)
 
         # the page updates again, and now shows both items on the list
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('2: sun tan lotion', [row.text for row in rows])
 
         # the site has generated a unique url for the list.  text is displayed to explain
+        self.fail('working, but test not finished')
 
         # the unique url is navigated to and the list is still there with both items
 
