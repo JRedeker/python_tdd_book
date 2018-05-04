@@ -13,6 +13,11 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def check_for_row_in_list_table(self, row_text):
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
     def test_can_start_list_and_retrieve_later(self):
         # user opens the website
         self.browser.get('http://localhost:8000')
@@ -37,18 +42,16 @@ class NewVisitorTest(unittest.TestCase):
         input_box.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('1: milk', [row.text for row in rows])
+        self.check_for_row_in_list_table('milk')
 
         # there is still a text boy for more items.  user enters a second item "sun tan lotion"
         input_box.send_keys('sun tan lotion')
         input_box.send_keys(Keys.ENTER)
+        time.sleep(1)
 
         # the page updates again, and now shows both items on the list
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('2: sun tan lotion', [row.text for row in rows])
+        self.check_for_row_in_list_table('milk')
+        self.check_for_row_in_list_table('sun tan lotion')
 
         # the site has generated a unique url for the list.  text is displayed to explain
         self.fail('working, but test not finished')
