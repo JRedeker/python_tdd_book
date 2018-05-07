@@ -1,4 +1,6 @@
 # http://www.obeythetestinggoat.com/book/chapter_post_and_database.html
+# todo clean up after FT runs
+# todo remove time.sleeps
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
