@@ -13,4 +13,6 @@ def view_list(request):
 
 
 def new_list(request):
+    list_ = List.objects.create()
+    Item.objects.create(text=request.POST['item_text'], list=list_)
     return redirect('/lists/the-list')
