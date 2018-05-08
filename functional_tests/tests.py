@@ -1,6 +1,5 @@
 # http://www.obeythetestinggoat.com/book/chapter_explicit_waits_1.html
 # todo clean up after FT runs
-# todo remove time.sleeps
 
 from django.test import LiveServerTestCase
 from selenium import webdriver
