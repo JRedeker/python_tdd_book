@@ -68,6 +68,21 @@ class ListViewTest(TestCase):
         self.assertContains(response, 'itemey 1')
         self.assertContains(response, 'itemey 2')
 
+    def test_displays_only_items_for_that_list(self):
+        correct_list = List.objects.create()
+        Item.objects.create(text='itemey 1', list=correct_list)
+        Item.objects.create(text='itemey 2', list=correct_list)
+        other_list = List.objects.create()
+        Item.objects.create(text='otheritem 1', list=other_list)
+        Item.objects.create(text='otheritem 2', list=other_list)
+
+        response = self.client.get('/lists/{}/'.format(correct_list.id))
+
+        self.assertContains(response, 'itemey 1')
+        self.assertContains(response, 'itemey 2')
+        self.assertNotContains(response, 'otheritem 1')
+        self.assertNotContains(response, 'otheritem 2')
+
 
 class NewListTest(TestCase):
 
