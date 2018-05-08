@@ -1,13 +1,14 @@
 # http://www.obeythetestinggoat.com/book/chapter_explicit_waits_1.html
 # todo clean up after FT runs
 # todo remove time.sleeps
-import time
+
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
+import time
 
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -22,7 +23,7 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_list_and_retrieve_later(self):
         # user opens the website
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # the page loads and sees the title
         self.assertIn('Grocery List', self.browser.title)
@@ -60,7 +61,3 @@ class NewVisitorTest(unittest.TestCase):
         self.fail('working, but test not finished')
 
         # the unique url is navigated to and the list is still there with both items
-
-
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
