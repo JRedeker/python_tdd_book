@@ -1,6 +1,3 @@
-# http://www.obeythetestinggoat.com/book/chapter_explicit_waits_1.html
-# todo clean up after FT runs
-
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -53,7 +50,6 @@ class NewVisitorTest(LiveServerTestCase):
         # when the user hits enter, the page updates, and the page now lists:
         # "1: buy swimsuit for vacation"
         input_box.send_keys(Keys.ENTER)
-
         self.wait_for_row_in_list_table('1: milk')
 
         # there is still a text boy for more items.  user enters a second item "sun tan lotion"
@@ -64,15 +60,6 @@ class NewVisitorTest(LiveServerTestCase):
         # the page updates again, and now shows both items on the list
         self.wait_for_row_in_list_table('2: sun tan lotion')
         self.wait_for_row_in_list_table('1: milk')
-
-        # the site has generated a unique url for the list.  text is displayed to explain
-        current_url = self.browser.current_url
-        self.assertRegex(current_url, '/lists/.+')
-
-        # the unique url is navigated to and the list is still there with both items
-        page_text = self.browser.find_elements_by_tag_name('body').text
-        self.assertIn('milk', page_text)
-        self.assertIn('sun tan lotion', page_text)
 
     def test_multiple_users_can_start_lists_at_different_urls(self):
         # user one starts a new grocery list
